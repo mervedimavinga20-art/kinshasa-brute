@@ -97,7 +97,7 @@ tfoot td{font-weight:800;background:#0d100d}
 body.role-manager [data-own],body.role-manager [data-act=delRow],body.role-manager [data-act=delMove],body.role-manager [data-act=delPay],body.role-manager [data-act=resDel],body.role-manager [data-act=delBook]{display:none!important}
 #bCloud.ok{color:var(--up)}#bCloud.err{color:var(--dn)}#bCloud.off{color:var(--mu)}
 .tabs svg{width:20px;height:20px}.tabs button.on{color:var(--up)}
-#upd{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));background:#000;border:2px solid var(--up);padding:10px 12px;z-index:95;display:none;align-items:center;justify-content:space-between;gap:10px;font-size:.85rem}#upd.on{display:flex}
+#upd.on{display:flex}
 #upd{position:fixed;left:12px;right:12px;bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:95;background:#000;border:2px solid var(--up);padding:10px 12px;display:flex;gap:10px;align-items:center;justify-content:space-between;font-size:.85rem}
 #toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--g);padding:9px 14px;font-size:.82rem;z-index:90;display:none;max-width:90vw}
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:80;display:none;align-items:center;justify-content:center;padding:16px}
@@ -219,7 +219,6 @@ body.print-doc #docWrap{display:block}
 <div id="docWrap"><div class="dbar"><button class="btn sm" data-act="docPrint" data-i="print"></button><button class="btn sm g2" data-act="docClose" data-i="close"></button></div><div id="doc"></div></div>
 <div id="toast"></div>
 <div id="upd" style="display:none"><span data-i="updNew"></span> <span style="display:flex;gap:6px"><button class="btn sm" data-act="reload" data-i="updBtn"></button><button class="btn sm g2" data-act="updClose" aria-label="x">×</button></span></div>
-<div id="upd"><span data-i="updNew"></span> <button class="btn sm" id="updGo" data-i="updGo"></button></div>
 <div class="ov" id="dlg"><div class="box"><p id="dlgMsg"></p><input id="dlgIn" style="display:none;margin-bottom:12px"><div class="btns"><button class="btn g2" id="dlgNo"></button><button class="btn" id="dlgYes"></button></div></div></div>
 <div class="ov" id="langOv"><div class="box"><h2 data-i="chooseLang"></h2><div class="lg" id="langBtns"></div></div></div>
 <div class="ov" id="lock"><h1 id="lkName" style="text-align:center"></h1><p class="mu" id="lkMsg" style="margin-top:8px;min-height:1.3em"></p><div id="dots"><i></i><i></i><i></i><i></i></div><div id="pad"></div><button class="btn g2 sm" style="margin-top:16px" data-act="forgot" data-i="forgot"></button></div>
@@ -762,7 +761,6 @@ $('#pad').addEventListener('click',e=>{const b=e.target.closest('button');if(b&&
 load();loadCL();LANG=state.set.lang||'fr';last=snap();buildTabs();renderAll();applyRole();
 if(state.set.pin)showLock();else afterUnlock();
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){const had=!!navigator.serviceWorker.controller;navigator.serviceWorker.register('sw.js').then(r=>{r.update();document.addEventListener('visibilitychange',()=>{if(!document.hidden)r.update()});setInterval(()=>r.update(),3600000)}).catch(()=>{});navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had){let s='';try{s=sessionStorage.getItem('kb-upd')}catch(e){}if(!s)$('#upd').style.display='flex'}})}
-$('#updGo').addEventListener('click',()=>location.reload());
 
 try{sessionStorage.removeItem('kb-upd')}catch(e){}
 cloudInit();addEventListener('online',()=>{sb?scheduleSync(500):cloudInit()});document.addEventListener('visibilitychange',()=>{if(!document.hidden)scheduleSync(300)});setInterval(()=>scheduleSync(0),60000);
